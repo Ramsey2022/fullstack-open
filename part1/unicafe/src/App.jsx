@@ -2,6 +2,13 @@ import { useState } from 'react'
 
 const Button = ({handleClick, text}) => <button onClick={handleClick}>{text}</button>
 
+const StatisticLine = ({text, value}) => (
+  <>
+  {text} 
+  {value}
+  </>
+  )
+
 const Statistics = (props) => {
   return (
     <div>
@@ -12,13 +19,19 @@ const Statistics = (props) => {
         <h2>No Feedback Yet</h2>
        ) : (
       <>
-      <p>Good: {props.good}</p>
-      <p>Neutral: {props.neutral}</p>
-      <p>Bad: {props.bad}</p>
-      <p>All: {props.all}</p>
-      <p>Average: {props.average}</p>
-      <p>Positive: {props.positive}</p>
-      <p>Negative: {props.negative}</p>
+      <StatisticLine text='Good: ' value={props.good}/>
+      <br />
+      <StatisticLine text='Neutral: ' value={props.neutral}/>
+      <br />
+      <StatisticLine text='Bad: ' value={props.bad}/>
+      <br />
+      <StatisticLine text='All: ' value={props.all}/>
+      <br />
+      <StatisticLine text='Average ' value={props.average}/>
+      <br />
+      <StatisticLine text='Positive ' value={props.positive}/>
+      <br />
+      <StatisticLine text='Negative ' value={props.negative}/>
       </>
       )}
     </div>
