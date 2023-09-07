@@ -3,10 +3,10 @@ import { useState } from 'react'
 const Button = ({handleClick, text}) => <button onClick={handleClick}>{text}</button>
 
 const StatisticLine = ({text, value}) => (
-  <>
-  {text} 
-  {value}
-  </>
+  <tr>
+    <td>{text}</td>
+    <td>{value}</td>
+  </tr>
   )
 
 const Statistics = (props) => {
@@ -18,21 +18,17 @@ const Statistics = (props) => {
       { !props.all ? (
         <h2>No Feedback Yet</h2>
        ) : (
-      <>
-      <StatisticLine text='Good: ' value={props.good}/>
-      <br />
-      <StatisticLine text='Neutral: ' value={props.neutral}/>
-      <br />
-      <StatisticLine text='Bad: ' value={props.bad}/>
-      <br />
-      <StatisticLine text='All: ' value={props.all}/>
-      <br />
-      <StatisticLine text='Average ' value={props.average}/>
-      <br />
-      <StatisticLine text='Positive ' value={props.positive}/>
-      <br />
-      <StatisticLine text='Negative ' value={props.negative}/>
-      </>
+      <table>
+        <tbody>
+          <StatisticLine text='Good: ' value={props.good}/>
+          <StatisticLine text='Neutral: ' value={props.neutral}/>
+          <StatisticLine text='Bad: ' value={props.bad}/>
+          <StatisticLine text='All: ' value={props.all}/>
+          <StatisticLine text='Average ' value={props.average}/>
+          <StatisticLine text='Positive ' value={props.positive}/>
+          <StatisticLine text='Negative ' value={props.negative}/>
+        </tbody>
+      </table>
       )}
     </div>
   )
@@ -47,8 +43,8 @@ const App = () => {
   
   const all = (good + neutral + bad)
   const average = (good - bad) / all
-  const positive = (good * 100) / all
-  const negative = (bad * 100) / all
+  const positive = ((good * 100) / all) + '%'
+  const negative = ((bad * 100) / all) + '%'
 
   const handleGoodClick = () => {
     const updatedGood = good + 1
