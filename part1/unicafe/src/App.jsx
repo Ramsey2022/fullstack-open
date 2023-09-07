@@ -7,6 +7,11 @@ const Statistics = (props) => {
     <div>
       <h1>Statistics</h1>
       <br />
+
+      { !props.all ? (
+        <h2>No Feedback Yet</h2>
+       ) : (
+      <>
       <p>Good: {props.good}</p>
       <p>Neutral: {props.neutral}</p>
       <p>Bad: {props.bad}</p>
@@ -14,6 +19,8 @@ const Statistics = (props) => {
       <p>Average: {props.average}</p>
       <p>Positive: {props.positive}</p>
       <p>Negative: {props.negative}</p>
+      </>
+      )}
     </div>
   )
 }
