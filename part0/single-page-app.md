@@ -3,14 +3,9 @@ sequenceDiagram
   participant browser
   participant server
 
-  browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+  browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
   activate server
   Note over server: the server asks browser for a new GET request
-  server-->>browser: redirect to https://studies.cs.helsinki.fi/exampleapp/notes
-  deactivate server
-
-  browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
-  activate server
   server-->>browser: HTML
   deactivate server
 
@@ -19,9 +14,9 @@ sequenceDiagram
   server-->>browser: main.css
   deactivate server
 
-  browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+  browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
   activate server
-  server-->>browser: main.js
+  server-->>browser: spa.js
   deactivate server
   Note over browser: browser starts executing JS that requests JSON data from server
 
