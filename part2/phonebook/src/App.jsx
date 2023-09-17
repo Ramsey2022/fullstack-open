@@ -3,6 +3,7 @@ import axios from 'axios'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
+import peopleService from './services/people'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
@@ -39,9 +40,14 @@ const App = () => {
       setNewPerson({ name: '', number: '' })
       return
     }
-    setPersons(persons.concat(newPerson))
-    setPersonsToShow(personsToShow.concat(newPerson))
-    setNewPerson({ name: '', number: '' })
+
+    peopleService
+      .create(newPerson)
+      .then(returnedPerson => {
+        setPersons(persons.concat(newPerson))
+        setPersonsToShow(personsToShow.concat(newPerson))
+        setNewPerson({ name: '', number: '' })
+      })
   }
 
   const handleChange = (e) => {
