@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
@@ -14,40 +13,53 @@ const App = () => {
   const [filter, setFilter] = useState('')
   const [personsToShow, setPersonsToShow] = useState([])
 
-  const hook = () => {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)
-        setPersonsToShow(response.data)
-      })
-  }
-
-  useEffect(hook, [])
-  console.log('render', persons.length, 'people')
-
   const addPerson = (e) =>{
     e.preventDefault()
 
-    if (
-      persons.some(
-        (person) => person.name.toLowerCase() === newPerson.name.toLowerCase()
-      )
-    ) {
-      alert(`${newPerson.name} is already added to phonebook`)
-      setNewPerson({ name: '', number: '' })
-      return
-    }
+    const existingPerson = persons.filter(
+      (person) => person.name.toLowerCase() === newPerson.name.toLowerCase()
+    )
 
-    peopleService
+    if (existingPerson.length === 0) {
+      peopleService
       .create(newPerson)
       .then(returnedPerson => {
-        setPersons(persons.concat(newPerson))
-        setPersonsToShow(personsToShow.concat(newPerson))
-        setNewPerson({ name: '', number: '' })
+        setPersons(persons.concat(returnedPerson))
+        setPersonsToShow(personsToShow.concat(returnedPerson))
       })
+    } else {
+      if(window.confirm(`${newPerson.name} is already in Phonebook. Replace the old number with a new one?`)) {
+        peopleService
+          .update(existingPerson[0].id, newPerson)
+          .then(returnedPerson => {
+            const updatePeople = persons.map(p => p.id !== returnedPerson.id ? p : returnedPerson)
+            setPersons(updatePeople)
+            setPersonsToShow(updatePeople)
+          })
+      }
+    }
+    setNewPerson({ name: '', number: '' })
+  }
+
+  useEffect(() => {
+    peopleService
+      .getAll()
+      .then(initialPeople => {
+        setPersons(initialPeople)
+        setPersonsToShow(initialPeople)
+      })
+  }, [])
+
+  const removePerson = (id, name) => {
+    if(window.confirm(`Delete ${name} from Phonebook?`)) {
+      peopleService
+        .remove(id)
+        .then(returnedPerson => {
+          const updatePeople = persons.filter(p => p.id !== id)
+          setPersons(updatePeople)
+          setPersonsToShow(updatePeople)
+        })
+    }
   }
 
   const handleChange = (e) => {
@@ -76,7 +88,8 @@ const App = () => {
         handleChange={handleChange} />
       <h2>Numbers</h2>
       <Persons 
-        personsToShow={personsToShow} />
+        personsToShow={personsToShow}
+        removePerson={removePerson} />
     </div>
   )
 }
