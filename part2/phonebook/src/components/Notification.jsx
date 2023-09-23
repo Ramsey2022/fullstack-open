@@ -3,7 +3,23 @@ const Notification = ({ message }) => {
     return null
   }
 
-  return (
+  if (message.includes('information')) {
+    return (
+      <div className="error">
+        {message}
+      </div>
+    )
+  }
+
+  if (message.includes('deleted')) {
+    return (
+      <div className="delete">
+        {message}
+      </div>
+    )
+  }
+
+   return (
     <div className='personAdd'>
       {message}
     </div>

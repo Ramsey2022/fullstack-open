@@ -40,6 +40,9 @@ const App = () => {
             setPersonsToShow(updatePeople)
             setMessage(`Updated ${newPerson.name}`)
           })
+          .catch(error => {
+            setMessage(`${newPerson.name}'s information has already been removed from server`)
+          })
       }
     }
     setNewPerson({ name: '', number: '' })
@@ -68,6 +71,7 @@ const App = () => {
           const updatePeople = persons.filter(p => p.id !== id)
           setPersons(updatePeople)
           setPersonsToShow(updatePeople)
+          setMessage(`${name} has been deleted successfully.`)
         })
     }
   }

@@ -68,8 +68,9 @@ button:focus-visible {
   }
 }
 
-.personAdd {
-  color: green;
+.personAdd,
+.error,
+.delete {
   background-color: lightgray;
   font-size: 20px;
   border-style: solid;
@@ -77,3 +78,13 @@ button:focus-visible {
   padding: 10px;
   margin-bottom: 10px;
 }
+
+.personAdd {
+  color: green
+}
+
+.error,
+.delete {
+  color: red;
+}
+
