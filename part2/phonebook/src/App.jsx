@@ -3,6 +3,7 @@ import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import peopleService from './services/people'
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
@@ -12,6 +13,7 @@ const App = () => {
   })
   const [filter, setFilter] = useState('')
   const [personsToShow, setPersonsToShow] = useState([])
+  const [message, setMessage] = useState(null)
 
   const addPerson = (e) =>{
     e.preventDefault()
@@ -26,6 +28,7 @@ const App = () => {
       .then(returnedPerson => {
         setPersons(persons.concat(returnedPerson))
         setPersonsToShow(personsToShow.concat(returnedPerson))
+        setMessage(`Added ${newPerson.name}`)
       })
     } else {
       if(window.confirm(`${newPerson.name} is already in Phonebook. Replace the old number with a new one?`)) {
@@ -35,6 +38,7 @@ const App = () => {
             const updatePeople = persons.map(p => p.id !== returnedPerson.id ? p : returnedPerson)
             setPersons(updatePeople)
             setPersonsToShow(updatePeople)
+            setMessage(`Updated ${newPerson.name}`)
           })
       }
     }
@@ -49,6 +53,12 @@ const App = () => {
         setPersonsToShow(initialPeople)
       })
   }, [])
+
+  useEffect(() => {
+    setTimeout(() => {
+      setMessage(null)
+    }, 5000)
+  }, [message])
 
   const removePerson = (id, name) => {
     if(window.confirm(`Delete ${name} from Phonebook?`)) {
@@ -78,6 +88,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message} />
         <Filter 
         filter={filter} 
         handleFilterChange={handleFilterChange} />

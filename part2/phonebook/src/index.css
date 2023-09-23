@@ -67,3 +67,13 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.personAdd {
+  color: green;
+  background-color: lightgray;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
