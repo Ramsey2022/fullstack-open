@@ -11,3 +11,11 @@
 - JavaScript
 - Component State, event handlers
 - A more complex state, debugging React apps
+
+### [Part 2 - Communicating with server](https://fullstackopen.com/en/part2)
+
+- Rendering a collection, modules
+- Forms
+- Getting data from server
+- Altering data in server
+- Adding styles to React app
