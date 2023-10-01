@@ -18,4 +18,8 @@
 - Forms
 - Getting data from server
 - Altering data in server
+<<<<<<< HEAD
 - Adding styles to React app
+=======
+- Adding styles to React app
+>>>>>>> 3b7c902bdabe70373e7ebaa139b6d57e30447381
